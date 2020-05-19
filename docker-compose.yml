@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mysql:
+    ports:
+      - ${DB_PORT}:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+    volumes:
+      - 'myData:/var/lib/mysql'
+      - './db/conf:/etc/mysql/conf.d'
+    image: mysql:5.7
+  
+  node-app:
+    ports:
+      - 3004:3004
+    build:
+      dockerfile: Dockerfile
+      context: ./app
+      
+
+volumes:
+  myData:
+    driver: local
+  
+  
